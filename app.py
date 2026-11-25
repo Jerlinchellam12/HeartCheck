@@ -40,7 +40,7 @@ for key, value in defaults.items():
 # live call failed). We never show a SIMULATED reply without labelling it.
 
 def render_assistant_message(message):
-    """Render one assistant message plus a SIMULATED badge if needed."""
+    """Render one assistant message plus a source badge (LIVE or SIMULATED)."""
 
     st.markdown(message["content"])
 
@@ -49,6 +49,8 @@ def render_assistant_message(message):
             f"🧪 Simulated demo response — live model unavailable "
             f"({message.get('reason', 'unknown reason')}). Not AI-generated."
         )
+    elif message.get("source") == "LIVE":
+        st.caption("✅ Live AI response (Groq)")
 
 
 def render_retry_button(message_list, key_suffix):
@@ -399,7 +401,7 @@ if mode == "Standard Chat":
 
     # User input
     user_input = st.chat_input(
-        "Describe the fictional patient's symptoms..."
+        "Describe the patient's symptoms..."
     )
 
     if user_input:
@@ -790,6 +792,6 @@ st.markdown("""
 <div class="footer">
     <strong>HEARTCHECK</strong><br>
     Intelligent Interactive Systems · Academic Research Prototype<br>
-    Powered by Llama 3.3 (via Groq) · simulated fallback when unavailable
+    Powered by GPT-OSS-120B (via Groq) · simulated fallback when unavailable
 </div>
 """, unsafe_allow_html=True)
