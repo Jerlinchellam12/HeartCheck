@@ -44,7 +44,7 @@ Commit history: https://github.com/Jerlinchellam12/HeartCheck/commits/main — g
 
 ## AI assistance statement
 
-Used Claude Code throughout: inspecting/debugging the existing codebase, implementing the fallback mechanism, migrating the LLM provider, writing the probe script, and the Word-document build script for the report. The research question, scenario design and interaction concept are my own (from my A1 review), and I made the key calls myself — choosing Groq after trade-offs were presented, removing the system prompt, insisting on 3 repeats instead of n=1. I ran every git command myself so the commit history is mine, and checked model outputs directly rather than trusting Claude's summaries (e.g. caught a raw response giving a US emergency number and unsolicited treatment advice myself). For the report's screenshots, Claude Code wrote and ran a Playwright script to drive the real running app, since I was short on time to click through manually; I reviewed every resulting image before using it.
+I used Claude Code as a development assistant for debugging, implementing the fallback mechanism, migrating the LLM provider, and creating scripts for probing and helping with report. The research question, scenario design and interaction concept were my own, based on my A1 review. I made the key project decisions, including choosing Groq after comparing options, removing the system prompt, and using three repeats per scenario. I ran the Git commands myself and reviewed the model outputs directly, identifying issues such as an incorrect US emergency number and unsolicited treatment advice. Claude Code also helped automate screenshots using Playwright, which I reviewed before including in the report.
 
 ## Repository structure
 
