@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1180" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#172B43"/>
+    </marker>
+    <marker id="arrowGrey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#94A3B8"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1600" height="1180" fill="#F8FAFC"/>
+
+  <text x="800" y="36" text-anchor="middle" font-size="24" font-weight="700" fill="#172B43">HeartCheck — System Architecture</text>
+  <text x="800" y="60" text-anchor="middle" font-size="14" fill="#64748B">Solid arrows = live request path. Dashed arrows = offline / separate tool, or an always-on relationship.</text>
+
+  <!-- USER -->
+  <rect x="600" y="78" width="200" height="48" rx="10" fill="#FFFFFF" stroke="#172B43" stroke-width="2"/>
+  <text x="700" y="107" text-anchor="middle" font-size="16" font-weight="600" fill="#172B43">User</text>
+  <line x1="700" y1="126" x2="700" y2="150" stroke="#172B43" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- STREAMLIT APP -->
+  <rect x="460" y="152" width="480" height="64" rx="10" fill="#EAF7F4" stroke="#2F9E7A" stroke-width="2"/>
+  <text x="700" y="177" text-anchor="middle" font-size="16" font-weight="700" fill="#172B43">Streamlit App — app.py</text>
+  <text x="700" y="198" text-anchor="middle" font-size="12.5" fill="#2F6B57">IMPLEMENTED · mode selection</text>
+
+  <!-- split to two modes -->
+  <line x1="560" y1="216" x2="340" y2="258" stroke="#172B43" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="840" y1="216" x2="1060" y2="258" stroke="#172B43" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- STANDARD CHAT -->
+  <rect x="160" y="260" width="360" height="86" rx="10" fill="#EAF7F4" stroke="#2F9E7A" stroke-width="2"/>
+  <text x="340" y="286" text-anchor="middle" font-size="15" font-weight="700" fill="#172B43">Standard Chat</text>
+  <text x="340" y="307" text-anchor="middle" font-size="12.5" fill="#2F6B57">Free-text symptom input</text>
+  <text x="340" y="326" text-anchor="middle" font-size="12.5" fill="#2F6B57">IMPLEMENTED</text>
+
+  <!-- STRUCTURED CHAT -->
+  <rect x="880" y="260" width="360" height="86" rx="10" fill="#EAF7F4" stroke="#2F9E7A" stroke-width="2"/>
+  <text x="1060" y="284" text-anchor="middle" font-size="15" font-weight="700" fill="#172B43">Structured Chat</text>
+  <text x="1060" y="303" text-anchor="middle" font-size="12.5" fill="#2F6B57">Guided Qs → summary →</text>
+  <text x="1060" y="320" text-anchor="middle" font-size="12.5" font-weight="700" fill="#A62D2D">human edit &amp; confirm ★</text>
+  <text x="1060" y="338" text-anchor="middle" font-size="12.5" fill="#2F6B57">IMPLEMENTED</text>
+
+  <text x="1060" y="366" text-anchor="middle" font-size="12" font-style="italic" fill="#A62D2D">★ key human-in-the-loop control point</text>
+
+  <!-- converge to LLM layer -->
+  <line x1="340" y1="346" x2="560" y2="428" stroke="#172B43" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="1060" y1="346" x2="840" y2="428" stroke="#172B43" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- LLM LAYER -->
+  <rect x="460" y="430" width="480" height="78" rx="10" fill="#EAF7F4" stroke="#2F9E7A" stroke-width="2"/>
+  <text x="700" y="456" text-anchor="middle" font-size="16" font-weight="700" fill="#172B43">LLM Layer — utils/llm.py</text>
+  <text x="700" y="476" text-anchor="middle" font-size="12.5" fill="#2F6B57">No system prompt (raw model, by design) · retry on 5xx</text>
+  <text x="700" y="494" text-anchor="middle" font-size="12.5" fill="#2F6B57">IMPLEMENTED</text>
+
+  <line x1="700" y1="508" x2="700" y2="536" stroke="#172B43" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- GROQ EXTERNAL -->
+  <rect x="550" y="538" width="300" height="58" rx="29" fill="#F1F5F9" stroke="#64748B" stroke-width="2" stroke-dasharray="2 2"/>
+  <text x="700" y="562" text-anchor="middle" font-size="13.5" font-weight="700" fill="#334155">External: Groq Cloud API</text>
+  <text x="700" y="580" text-anchor="middle" font-size="12" fill="#475569">model: openai/gpt-oss-120b</text>
+
+  <!-- split live / simulated -->
+  <line x1="620" y1="596" x2="400" y2="634" stroke="#172B43" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="440" y="620" font-size="12" fill="#2F6B57">success</text>
+  <line x1="780" y1="596" x2="1000" y2="634" stroke="#D94F70" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="920" y="620" font-size="12" fill="#A62D2D">any failure</text>
+
+  <!-- LIVE RESPONSE -->
+  <rect x="200" y="636" width="320" height="70" rx="10" fill="#EAF7F4" stroke="#2F9E7A" stroke-width="2"/>
+  <text x="360" y="661" text-anchor="middle" font-size="14" font-weight="700" fill="#172B43">Live Response</text>
+  <text x="360" y="680" text-anchor="middle" font-size="12.5" fill="#2F6B57">badge: ✅ Live AI response</text>
+  <text x="360" y="697" text-anchor="middle" font-size="12" fill="#2F6B57">IMPLEMENTED</text>
+
+  <!-- SIMULATED FALLBACK -->
+  <rect x="880" y="636" width="320" height="70" rx="10" fill="#FFF1F0" stroke="#D94F70" stroke-width="2"/>
+  <text x="1040" y="658" text-anchor="middle" font-size="14" font-weight="700" fill="#172B43">Simulated Fallback</text>
+  <text x="1040" y="677" text-anchor="middle" font-size="12.5" fill="#A62D2D">badge: 🧪 Simulated + Retry button</text>
+  <text x="1040" y="695" text-anchor="middle" font-size="11.5" fill="#A62D2D">SIMULATED (triggers on any failure)</text>
+
+  <!-- converge to display -->
+  <line x1="360" y1="706" x2="580" y2="736" stroke="#172B43" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="1040" y1="706" x2="820" y2="736" stroke="#172B43" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- RESPONSE DISPLAY -->
+  <rect x="460" y="738" width="480" height="64" rx="10" fill="#EAF7F4" stroke="#2F9E7A" stroke-width="2"/>
+  <text x="700" y="763" text-anchor="middle" font-size="15" font-weight="700" fill="#172B43">Response Display</text>
+  <text x="700" y="783" text-anchor="middle" font-size="12.5" fill="#2F6B57">source badge always shown · IMPLEMENTED</text>
+
+  <!-- SAFETY BANNER (always on, independent) — well clear of structured chat / simulated fallback -->
+  <rect x="1280" y="152" width="270" height="650" rx="10" fill="#FFF1F0" stroke="#D94F70" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="1415" y="182" text-anchor="middle" font-size="14" font-weight="700" fill="#172B43">999 Banner +</text>
+  <text x="1415" y="202" text-anchor="middle" font-size="14" font-weight="700" fill="#172B43">Disclaimer</text>
+  <text x="1415" y="228" text-anchor="middle" font-size="12" fill="#A62D2D">Static HTML, not model-</text>
+  <text x="1415" y="246" text-anchor="middle" font-size="12" fill="#A62D2D">generated. Always visible,</text>
+  <text x="1415" y="264" text-anchor="middle" font-size="12" fill="#A62D2D">independent of mode, gender,</text>
+  <text x="1415" y="282" text-anchor="middle" font-size="12" fill="#A62D2D">or API state.</text>
+  <text x="1415" y="308" text-anchor="middle" font-size="12" fill="#2F6B57" font-weight="700">IMPLEMENTED</text>
+
+  <line x1="940" y1="184" x2="1280" y2="184" stroke="#D94F70" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <path d="M940,770 L1240,770 L1280,650" fill="none" stroke="#D94F70" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- PLANNED: optional safety-prompted toggle -->
+  <rect x="1320" y="660" width="190" height="72" rx="10" fill="#F4F7FB" stroke="#94A3B8" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="1415" y="684" text-anchor="middle" font-size="12.5" font-weight="700" fill="#475569">Safety-prompted mode</text>
+  <text x="1415" y="701" text-anchor="middle" font-size="11.5" fill="#64748B">(toggle, unused by</text>
+  <text x="1415" y="716" text-anchor="middle" font-size="11.5" fill="#64748B">default) · PLANNED</text>
+
+  <!-- OFFLINE EVALUATION PIPELINE: horizontal strip below main flow -->
+  <path d="M470,508 L100,508 L100,922 L160,922" fill="none" stroke="#94A3B8" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arrowGrey)"/>
+  <text x="285" y="498" text-anchor="middle" font-size="12" fill="#64748B">reuses LLM layer, offline</text>
+
+  <rect x="140" y="848" width="1020" height="128" rx="12" fill="none" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="175" y="872" font-size="13" font-weight="700" fill="#475569">Offline evaluation</text>
+
+  <rect x="165" y="888" width="280" height="68" rx="8" fill="#EAF7F4" stroke="#2F9E7A" stroke-width="2"/>
+  <text x="305" y="910" text-anchor="middle" font-size="13" font-weight="700" fill="#172B43">quick_probe.py</text>
+  <text x="305" y="928" text-anchor="middle" font-size="11.5" fill="#2F6B57">4 scenarios × 2 genders × 3 repeats</text>
+  <text x="305" y="945" text-anchor="middle" font-size="11.5" fill="#2F6B57">IMPLEMENTED, run</text>
+
+  <line x1="445" y1="922" x2="495" y2="922" stroke="#172B43" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="500" y="888" width="280" height="68" rx="8" fill="#EAF7F4" stroke="#2F9E7A" stroke-width="2"/>
+  <text x="640" y="915" text-anchor="middle" font-size="13" font-weight="700" fill="#172B43">quick_probe_output.md</text>
+  <text x="640" y="935" text-anchor="middle" font-size="11.5" fill="#2F6B57">flag counts + transcripts</text>
+
+  <line x1="780" y1="922" x2="830" y2="922" stroke="#94A3B8" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arrowGrey)"/>
+
+  <rect x="835" y="888" width="300" height="68" rx="8" fill="#F4F7FB" stroke="#94A3B8" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="985" y="910" text-anchor="middle" font-size="13" font-weight="700" fill="#475569">evaluate.py</text>
+  <text x="985" y="928" text-anchor="middle" font-size="11.5" fill="#64748B">formal scored CSV framework</text>
+  <text x="985" y="945" text-anchor="middle" font-size="11.5" fill="#64748B" font-weight="700">PLANNED</text>
+
+  <!-- LEGEND -->
+  <rect x="140" y="1010" width="1320" height="150" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="165" y="1038" font-size="14" font-weight="700" fill="#172B43">Legend</text>
+
+  <rect x="165" y="1050" width="24" height="24" rx="4" fill="#EAF7F4" stroke="#2F9E7A" stroke-width="2"/>
+  <text x="199" y="1067" font-size="13" fill="#172B43">Implemented</text>
+
+  <rect x="345" y="1050" width="24" height="24" rx="4" fill="#FFF1F0" stroke="#D94F70" stroke-width="2"/>
+  <text x="379" y="1067" font-size="13" fill="#172B43">Simulated</text>
+
+  <rect x="505" y="1050" width="24" height="24" rx="4" fill="#F4F7FB" stroke="#94A3B8" stroke-width="2" stroke-dasharray="4 3"/>
+  <text x="539" y="1067" font-size="13" fill="#172B43">Planned</text>
+
+  <line x1="670" y1="1062" x2="725" y2="1062" stroke="#172B43" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="735" y="1067" font-size="13" fill="#172B43">Live request path</text>
+
+  <line x1="930" y1="1062" x2="985" y2="1062" stroke="#94A3B8" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arrowGrey)"/>
+  <text x="995" y="1067" font-size="13" fill="#172B43">Offline / always-on relationship</text>
+
+  <text x="165" y="1100" font-size="12.5" fill="#475569">★ Structured Chat's human-edit-and-confirm step is the interaction this project is actually testing (A1 research question).</text>
+  <text x="165" y="1120" font-size="12.5" fill="#475569">The 999 banner is deliberately outside the AI's control, so safety does not depend on model wording.</text>
+  <text x="165" y="1140" font-size="12.5" fill="#475569">Simulated Fallback triggers on ANY live-call failure (missing key, rate limit, outage) — the app stays demonstrable either way.</text>
+</svg>
